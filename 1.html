@@ -1,0 +1,693 @@
+
+<html data-theme="dark" lang="en">
+<head>
+  <!-- ═══════════════════════════════════════════════
+       META & SEO
+  ═══════════════════════════════════════════════ -->
+  <meta charset="UTF-8"></meta>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"></meta>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"></meta>
+
+  <title>Cyber Automation Engineer | ICS/SCADA · OT Cybersecurity · PLC Development</title>
+  <meta content="Cyber Automation Engineer — Technical blogger specialising in Industrial Automation, ICS/SCADA, OT Cybersecurity, PLC Programming, and Software Development (Python, Java, C/C++)." name="description"></meta>
+  <meta content="ICS security,SCADA,PLC programming,OT cybersecurity,industrial automation,Modbus,OPC UA,Profinet,Ethernet/IP,MQTT,LabVIEW,Python,Java,C++,Industry 4.0,cyber automation,ethical hacking,RTU configuration,network security,Siemens,Allen-Bradley,Schneider Electric" name="keywords"></meta>
+  <meta content="Cyber Automation Engineer" name="author"></meta>
+  <meta content="index, follow" name="robots"></meta>
+  <link href="https://cyberautomationengineer.example.com/" rel="canonical"></link>
+
+  <!-- Open Graph -->
+  <meta content="website" property="og:type"></meta>
+  <meta content="https://cyberautomationengineer.example.com/" property="og:url"></meta>
+  <meta content="Cyber Automation Engineer | ICS/SCADA · OT Cybersecurity" property="og:title"></meta>
+  <meta content="Technical insights on Industrial Automation, ICS/SCADA, OT Cybersecurity, and Software Development." property="og:description"></meta>
+  <meta content="https://cyberautomationengineer.example.com/assets/og-cover.png" property="og:image"></meta>
+  <meta content="Cyber Automation Engineer" property="og:site_name"></meta>
+
+  <!-- Twitter Card -->
+  <meta content="summary_large_image" name="twitter:card"></meta>
+  <meta content="Cyber Automation Engineer" name="twitter:title"></meta>
+  <meta content="ICS/SCADA · OT Cybersecurity · PLC Development · Python · Industry 4.0" name="twitter:description"></meta>
+  <meta content="https://cyberautomationengineer.example.com/assets/og-cover.png" name="twitter:image"></meta>
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Cyber Automation Engineer",
+    "url": "https://cyberautomationengineer.example.com/",
+    "sameAs": [
+      "https://github.com/cyberautomationengineer",
+      "https://www.linkedin.com/in/cyberautomationengineer"
+    ],
+    "jobTitle": "ICS/SCADA Security Researcher & Automation Engineer",
+    "knowsAbout": ["ICS Security","SCADA","PLC","OT Cybersecurity","Python","Modbus","OPC UA","LabVIEW","Industry 4.0"],
+    "description": "Technical blogger covering Industrial Automation, ICS/SCADA, OT Cybersecurity, and Software Development."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Cyber Automation Engineer Blog",
+    "url": "https://cyberautomationengineer.example.com/",
+    "description": "Educational articles on ICS/SCADA, OT Security, PLC programming, and industrial software development.",
+    "author": { "@type": "Person", "name": "Cyber Automation Engineer" }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"></link>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"></link>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&amp;family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"></link>
+
+  <!-- Font Awesome (icons) -->
+  <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"></link>
+
+  <!-- Stylesheet -->
+  <link href="style.css" rel="stylesheet"></link>
+</head>
+
+<body>
+
+  <!-- ══════════════════════════════════════════════
+       SKIP LINK (Accessibility)
+  ══════════════════════════════════════════════ -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ══════════════════════════════════════════════
+       1. HEADER / NAVBAR
+  ══════════════════════════════════════════════ -->
+  <header class="navbar" id="navbar" role="banner">
+    <div class="nav-container">
+
+      <!-- Logo / Brand -->
+      <a aria-label="Cyber Automation Engineer Home" class="nav-logo" href="#home">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">CAE</span>
+        <span class="logo-cursor">_</span>
+        <span class="logo-bracket">]</span>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav aria-label="Primary navigation" class="nav-links" role="navigation">
+        <a class="nav-link" href="#home">Home</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#blog">Blog</a>
+        <a class="nav-link" href="#projects">Projects</a>
+        <a class="nav-link" href="#protocols">Protocols</a>
+        <a class="nav-link" href="#contact">Contact</a>
+      </nav>
+
+      <!-- Controls -->
+      <div class="nav-controls">
+        <button aria-label="Toggle dark/light mode" class="theme-toggle" id="themeToggle" title="Toggle theme">
+          <i aria-hidden="true" class="fas fa-moon" id="themeIcon"></i>
+        </button>
+        <button aria-controls="mobileMenu" aria-expanded="false" aria-label="Open menu" class="hamburger" id="hamburger">
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+          <span class="ham-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav aria-label="Mobile navigation" class="mobile-menu" hidden="" id="mobileMenu">
+      <a class="mobile-link" href="#home">Home</a>
+      <a class="mobile-link" href="#about">About</a>
+      <a class="mobile-link" href="#blog">Blog</a>
+      <a class="mobile-link" href="#projects">Projects</a>
+      <a class="mobile-link" href="#protocols">Protocols</a>
+      <a class="mobile-link" href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- ══════════════════════════════════════════════
+       MAIN CONTENT
+  ══════════════════════════════════════════════ -->
+  <main id="main-content">
+
+    <!-- 2. HERO SECTION -->
+    <section aria-label="Hero banner" class="hero" id="home">
+      <!-- Particle / circuit canvas -->
+      <canvas aria-hidden="true" class="hero-canvas" id="heroCanvas"></canvas>
+
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span aria-hidden="true" class="badge-dot"></span>
+          <span class="hero-badge-text">Available for Research Collaboration</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="hero-name">Cyber Automation</span>
+          <span class="hero-name accent">Engineer</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          <span class="typewriter-prefix">// </span>
+          <span aria-label="Rotating professional titles" aria-live="polite" class="typewriter-text" id="typewriter"></span>
+          <span aria-hidden="true" class="typewriter-cursor">|</span>
+        </p>
+
+        <p class="hero-tagline">
+          Bridging the gap between <em>Operational Technology</em> and <em>Cybersecurity</em> —
+          one protocol at a time.
+        </p>
+
+        <div class="hero-cta-group">
+          <a class="btn btn-primary" href="#blog">
+            <i aria-hidden="true" class="fas fa-terminal"></i>
+            Explore the Blog
+          </a>
+          <a class="btn btn-ghost" href="#about">
+            <i aria-hidden="true" class="fas fa-user-circle"></i>
+            About Me
+          </a>
+        </div>
+
+        <!-- Quick stats -->
+        <div aria-label="Quick statistics" class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value" data-count="50">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Articles</span>
+          </div>
+          <div aria-hidden="true" class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" data-count="12">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Protocols</span>
+          </div>
+          <div aria-hidden="true" class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" data-count="8">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Years Exp.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <a aria-label="Scroll to About section" class="scroll-indicator" href="#about">
+        <span aria-hidden="true" class="scroll-dot"></span>
+      </a>
+    </section>
+
+    <!-- 3. AUTHOR PROFILE & INTRODUCTION -->
+    <section aria-labelledby="about-heading" class="section author-section" id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// 01. about</span>
+          <h2 class="section-title" id="about-heading">Author Profile</h2>
+        </div>
+
+        <div class="author-card glass-card">
+          <!-- Avatar -->
+          <div class="author-avatar-wrap">
+            <div aria-hidden="true" class="avatar-ring"></div>
+            <div aria-label="Author avatar placeholder" class="author-avatar">
+              <i aria-hidden="true" class="fas fa-robot"></i>
+            </div>
+            <span aria-label="Online status: active" class="avatar-status"></span>
+          </div>
+
+          <!-- Info -->
+          <div class="author-info">
+            <h3 class="author-name">Cyber Automation Engineer</h3>
+            <p class="author-role">ICS/SCADA Security Researcher · PLC Developer · OT Cybersecurity Specialist</p>
+
+            <p class="author-bio">
+              A seasoned professional at the intersection of <strong>Industrial Automation</strong> and
+              <strong>Cybersecurity</strong>. With hands-on experience in ICS/SCADA architecture, PLC
+              programming, and industrial network protocols, this blog delivers deep-dive technical content
+              focused on securing Operational Technology environments. Committed to responsible disclosure
+              and advancing OT security awareness across critical infrastructure sectors.
+            </p>
+
+            <!-- Skill Badges -->
+            <div aria-label="Technical skills" class="skill-badges">
+              <span class="badge badge-blue">PLC</span>
+              <span class="badge badge-green">SCADA</span>
+              <span class="badge badge-blue">Python</span>
+              <span class="badge badge-amber">OPC UA</span>
+              <span class="badge badge-green">Modbus</span>
+              <span class="badge badge-blue">Cybersecurity</span>
+              <span class="badge badge-amber">LabVIEW</span>
+              <span class="badge badge-green">MQTT</span>
+              <span class="badge badge-blue">Java</span>
+              <span class="badge badge-amber">C/C++</span>
+              <span class="badge badge-green">IEC 61511</span>
+              <span class="badge badge-blue">NIST CSF</span>
+            </div>
+
+            <!-- Social Links -->
+            <div aria-label="Social and professional links" class="social-links">
+              <a aria-label="GitHub Profile" class="social-btn" href="#" title="GitHub">
+                <i aria-hidden="true" class="fab fa-github"></i>
+              </a>
+              <a aria-label="LinkedIn Profile" class="social-btn" href="#" title="LinkedIn">
+                <i aria-hidden="true" class="fab fa-linkedin-in"></i>
+              </a>
+              <a aria-label="Twitter/X Profile" class="social-btn" href="#" title="Twitter / X">
+                <i aria-hidden="true" class="fab fa-x-twitter"></i>
+              </a>
+              <a aria-label="RSS Feed" class="social-btn" href="#" title="RSS Feed">
+                <i aria-hidden="true" class="fas fa-rss"></i>
+              </a>
+              <a aria-label="Send email" class="social-btn" href="#contact" title="Contact">
+                <i aria-hidden="true" class="fas fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. EXPERTISE & SKILLS -->
+    <section aria-labelledby="skills-heading" class="section skills-section" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// 02. expertise</span>
+          <h2 class="section-title" id="skills-heading">Skills &amp; Expertise</h2>
+        </div>
+
+        <div class="skills-grid">
+          <!-- Left: Progress bars -->
+          <div aria-label="Skill proficiency levels" class="skills-bars">
+            <!-- Each bar animated on scroll via IntersectionObserver in JS -->
+            <div class="skill-bar-item">
+              <div class="skill-label">
+                <span>ICS / SCADA Architecture</span><span class="skill-pct">95%</span>
+              </div>
+              <div aria-label="ICS SCADA 95%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="95" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="95" style="--skill-color: #00d4ff;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>PLC Programming (IEC 61131-3)</span><span class="skill-pct">93%</span></div>
+              <div aria-label="PLC Programming 93%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="93" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="93" style="--skill-color: #00ff88;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>OT Cybersecurity (IEC 62443)</span><span class="skill-pct">90%</span></div>
+              <div aria-label="OT Cybersecurity 90%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="90" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="90" style="--skill-color: #ffaa00;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>Python Development</span><span class="skill-pct">88%</span></div>
+              <div aria-label="Python 88%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="88" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="88" style="--skill-color: #00d4ff;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>Industrial Protocols (Modbus/OPC UA)</span><span class="skill-pct">92%</span></div>
+              <div aria-label="Industrial Protocols 92%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="92" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="92" style="--skill-color: #00ff88;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>Java / C / C++</span><span class="skill-pct">80%</span></div>
+              <div aria-label="Java C C++ 80%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="80" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="80" style="--skill-color: #ffaa00;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>LabVIEW / NI Platform</span><span class="skill-pct">82%</span></div>
+              <div aria-label="LabVIEW 82%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="82" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="82" style="--skill-color: #00d4ff;"></div>
+              </div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="skill-label"><span>Industry 4.0 / IIoT</span><span class="skill-pct">85%</span></div>
+              <div aria-label="Industry 4.0 85%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="85" class="skill-track" role="progressbar">
+                <div class="skill-fill" data-width="85" style="--skill-color: #00ff88;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Hex skill grid -->
+          <div aria-label="Technology specialisations" class="hex-grid">
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-microchip"></i><span>PLC</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-network-wired"></i><span>SCADA</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-shield-halved"></i><span>OT Sec</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fab fa-python"></i><span>Python</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fab fa-java"></i><span>Java</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-code"></i><span>C/C++</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-plug"></i><span>Modbus</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-share-nodes"></i><span>OPC UA</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-ethernet"></i><span>Profinet</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-satellite-dish"></i><span>MQTT</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-industry"></i><span>Ind 4.0</span></div>
+            <div class="hex-item"><i aria-hidden="true" class="fas fa-flask"></i><span>LabVIEW</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. FEATURED BLOG POSTS -->
+    <section aria-labelledby="blog-heading" class="section blog-section" id="blog">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// 03. articles</span>
+          <h2 class="section-title" id="blog-heading">Featured Posts</h2>
+          <p class="section-subtitle">Deep-dive technical articles on ICS, SCADA, and OT Security.</p>
+        </div>
+
+        <!-- Blog cards injected by JS from JSON data -->
+        <div aria-label="Featured blog posts" class="blog-grid" id="blogGrid" role="list">
+          <!-- Populated by script.js -->
+        </div>
+
+        <div class="section-cta">
+          <a class="btn btn-outline" href="#">
+            <i aria-hidden="true" class="fas fa-book-open"></i>
+            View All Articles
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. INDUSTRIAL PROTOCOLS & TECHNOLOGIES -->
+    <section aria-labelledby="protocols-heading" class="section protocols-section" id="protocols">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// 04. protocols</span>
+          <h2 class="section-title" id="protocols-heading">Industrial Protocols &amp; Platforms</h2>
+        </div>
+
+        <div aria-label="Supported industrial protocols and platforms" class="protocols-grid">
+
+          <article aria-label="Modbus RTU/TCP" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-plug"></i></div>
+            <h3 class="protocol-name">Modbus RTU/TCP</h3>
+            <p class="protocol-desc">Classic serial &amp; Ethernet fieldbus protocol for PLC/RTU communication.</p>
+            <span class="protocol-badge">Fieldbus</span>
+          </article>
+
+          <article aria-label="OPC UA" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-share-nodes"></i></div>
+            <h3 class="protocol-name">OPC UA</h3>
+            <p class="protocol-desc">Unified Architecture for secure, platform-independent data exchange.</p>
+            <span class="protocol-badge">IIoT</span>
+          </article>
+
+          <article aria-label="Profinet" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-ethernet"></i></div>
+            <h3 class="protocol-name">Profinet</h3>
+            <p class="protocol-desc">Real-time Industrial Ethernet standard by Siemens / PI.</p>
+            <span class="protocol-badge">Ethernet</span>
+          </article>
+
+          <article aria-label="Ethernet/IP" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-network-wired"></i></div>
+            <h3 class="protocol-name">Ethernet/IP</h3>
+            <p class="protocol-desc">CIP-based Ethernet protocol for Allen-Bradley &amp; Rockwell platforms.</p>
+            <span class="protocol-badge">Ethernet</span>
+          </article>
+
+          <article aria-label="MQTT" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-satellite-dish"></i></div>
+            <h3 class="protocol-name">MQTT</h3>
+            <p class="protocol-desc">Lightweight publish-subscribe messaging for IIoT edge devices.</p>
+            <span class="protocol-badge">IIoT</span>
+          </article>
+
+          <article aria-label="Siemens TIA Portal" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-microchip"></i></div>
+            <h3 class="protocol-name">Siemens S7 / TIA</h3>
+            <p class="protocol-desc">S7-300/400/1200/1500 PLC series with TIA Portal engineering suite.</p>
+            <span class="protocol-badge">OEM</span>
+          </article>
+
+          <article aria-label="Allen-Bradley / Rockwell" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-cogs"></i></div>
+            <h3 class="protocol-name">Allen-Bradley</h3>
+            <p class="protocol-desc">ControlLogix, CompactLogix &amp; Studio 5000 Logix Designer.</p>
+            <span class="protocol-badge">OEM</span>
+          </article>
+
+          <article aria-label="Schneider Electric" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-bolt"></i></div>
+            <h3 class="protocol-name">Schneider Electric</h3>
+            <p class="protocol-desc">Modicon M340/M580 PLCs with EcoStruxure platform.</p>
+            <span class="protocol-badge">OEM</span>
+          </article>
+
+          <article aria-label="Mitsubishi Electric" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-industry"></i></div>
+            <h3 class="protocol-name">Mitsubishi Electric</h3>
+            <p class="protocol-desc">MELSEC series PLCs with GX Works engineering environment.</p>
+            <span class="protocol-badge">OEM</span>
+          </article>
+
+          <article aria-label="LabVIEW" class="protocol-card glass-card">
+            <div class="protocol-icon"><i aria-hidden="true" class="fas fa-flask"></i></div>
+            <h3 class="protocol-name">LabVIEW / NI</h3>
+            <p class="protocol-desc">National Instruments graphical programming for test &amp; measurement.</p>
+            <span class="protocol-badge">TAMS</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CATEGORIES / TOPICS -->
+    <section aria-labelledby="categories-heading" class="section categories-section" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// 05. topics</span>
+          <h2 class="section-title" id="categories-heading">Categories &amp; Topics</h2>
+        </div>
+
+        <div aria-label="Blog topic categories" class="categories-grid" role="list">
+
+          <a aria-label="PLC Programming articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-microchip"></i></div>
+            <h3 class="cat-title">PLC Programming</h3>
+            <p class="cat-desc">IEC 61131-3 languages, Ladder Logic, Function Block, ST</p>
+            <span class="cat-count">12 articles</span>
+          </a>
+
+          <a aria-label="SCADA Development articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-desktop"></i></div>
+            <h3 class="cat-title">SCADA Development</h3>
+            <p class="cat-desc">HMI design, historian configuration, alarm management</p>
+            <span class="cat-count">9 articles</span>
+          </a>
+
+          <a aria-label="OT Cybersecurity articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-shield-halved"></i></div>
+            <h3 class="cat-title">OT Cybersecurity</h3>
+            <p class="cat-desc">IEC 62443, NIST CSF, network segmentation, threat modelling</p>
+            <span class="cat-count">15 articles</span>
+          </a>
+
+          <a aria-label="Ethical Hacking articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-user-secret"></i></div>
+            <h3 class="cat-title">Ethical Hacking</h3>
+            <p class="cat-desc">ICS penetration testing, vulnerability research, red-teaming OT</p>
+            <span class="cat-count">8 articles</span>
+          </a>
+
+          <a aria-label="Python Projects articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fab fa-python"></i></div>
+            <h3 class="cat-title">Python Projects</h3>
+            <p class="cat-desc">Industrial scripting, protocol libraries, automation tooling</p>
+            <span class="cat-count">11 articles</span>
+          </a>
+
+          <a aria-label="Java Development articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fab fa-java"></i></div>
+            <h3 class="cat-title">Java Development</h3>
+            <p class="cat-desc">OPC UA clients, enterprise integration, backend services</p>
+            <span class="cat-count">6 articles</span>
+          </a>
+
+          <a aria-label="RTU Configuration articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-server"></i></div>
+            <h3 class="cat-title">RTU Configuration</h3>
+            <p class="cat-desc">Remote Terminal Units, DNP3, serial communications</p>
+            <span class="cat-count">5 articles</span>
+          </a>
+
+          <a aria-label="Network Security articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-lock"></i></div>
+            <h3 class="cat-title">Network Security</h3>
+            <p class="cat-desc">Firewall rules, DMZ design, IDS/IPS for OT networks</p>
+            <span class="cat-count">10 articles</span>
+          </a>
+
+          <a aria-label="Industry 4.0 articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-robot"></i></div>
+            <h3 class="cat-title">Industry 4.0</h3>
+            <p class="cat-desc">IIoT, digital twin, edge computing, cloud SCADA integration</p>
+            <span class="cat-count">7 articles</span>
+          </a>
+
+          <a aria-label="LabVIEW articles" class="category-card" href="#" role="listitem">
+            <div class="cat-icon"><i aria-hidden="true" class="fas fa-flask"></i></div>
+            <h3 class="cat-title">LabVIEW</h3>
+            <p class="cat-desc">G programming, DAQ, instrument control, test sequencing</p>
+            <span class="cat-count">4 articles</span>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. DISCLAIMER / MISSION STATEMENT -->
+    <section aria-labelledby="disclaimer-heading" class="section disclaimer-section" id="disclaimer">
+      <div class="container">
+        <div class="disclaimer-banner glass-card">
+          <div aria-hidden="true" class="disclaimer-icon">
+            <i class="fas fa-triangle-exclamation"></i>
+          </div>
+          <div class="disclaimer-content">
+            <h2 class="disclaimer-title" id="disclaimer-heading">
+              <i aria-hidden="true" class="fas fa-gavel"></i>
+              Disclaimer &amp; Mission Statement
+            </h2>
+            <p>
+              All content published on this blog is <strong>strictly educational and informational</strong>
+              in nature. Techniques, tools, and vulnerabilities discussed are presented solely to advance
+              the understanding of <strong>OT/ICS cybersecurity</strong> within the professional and
+              research community.
+            </p>
+            <p>
+              This blog adheres to the principles of <strong>responsible disclosure</strong> and ethical
+              research. Any vulnerability research shared here is either based on publicly known CVEs,
+              lab/test environments, or has been disclosed to vendors prior to publication in accordance
+              with coordinated disclosure best practices.
+            </p>
+            <p>
+              <strong>Readers are reminded</strong> that applying techniques to systems without explicit
+              written authorisation is illegal and unethical. The author assumes <strong>no liability</strong>
+              for misuse of the information provided. Always operate within the boundaries of applicable
+              law (e.g. Computer Fraud and Abuse Act, UK Computer Misuse Act, EU NIS2 Directive).
+            </p>
+            <div aria-label="Compliance frameworks" class="disclaimer-tags">
+              <span class="d-tag"><i aria-hidden="true" class="fas fa-check-circle"></i> IEC 62443</span>
+              <span class="d-tag"><i aria-hidden="true" class="fas fa-check-circle"></i> NIST CSF</span>
+              <span class="d-tag"><i aria-hidden="true" class="fas fa-check-circle"></i> Responsible Disclosure</span>
+              <span class="d-tag"><i aria-hidden="true" class="fas fa-check-circle"></i> CVE Programme</span>
+              <span class="d-tag"><i aria-hidden="true" class="fas fa-check-circle"></i> CISA Guidelines</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION (lightweight) -->
+    <section aria-labelledby="contact-heading" class="section contact-section" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">// 06. contact</span>
+          <h2 class="section-title" id="contact-heading">Get in Touch</h2>
+          <p class="section-subtitle">Research collaboration, responsible disclosure, or just a technical discussion.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-card glass-card">
+            <i aria-hidden="true" class="fas fa-envelope contact-icon"></i>
+            <h3>Email</h3>
+            <p>contact@cyberautomation.example</p>
+          </div>
+          <div class="contact-card glass-card">
+            <i aria-hidden="true" class="fab fa-github contact-icon"></i>
+            <h3>GitHub</h3>
+            <p>github.com/cyberautomationengineer</p>
+          </div>
+          <div class="contact-card glass-card">
+            <i aria-hidden="true" class="fas fa-key contact-icon"></i>
+            <h3>PGP Key</h3>
+            <p>Available on keyserver.ubuntu.com</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /main -->
+
+  <!-- ══════════════════════════════════════════════
+       9. FOOTER
+  ══════════════════════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div aria-hidden="true" class="footer-glow-border"></div>
+    <div class="container">
+
+      <div class="footer-top">
+        <!-- Brand -->
+        <div class="footer-brand">
+          <a aria-label="Cyber Automation Engineer Home" class="nav-logo footer-logo" href="#home">
+            <span class="logo-bracket">[</span>
+            <span class="logo-text">CAE</span>
+            <span class="logo-cursor">_</span>
+            <span class="logo-bracket">]</span>
+          </a>
+          <p class="footer-bio">
+            Industrial Automation · ICS/SCADA · OT Cybersecurity · Software Development
+          </p>
+        </div>
+
+        <!-- Quick links -->
+        <nav aria-label="Footer navigation" class="footer-nav">
+          <h4 class="footer-nav-title">Navigate</h4>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#blog">Blog</a>
+          <a href="#protocols">Protocols</a>
+          <a href="#projects">Topics</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <!-- Topics -->
+        <nav aria-label="Topic categories" class="footer-nav">
+          <h4 class="footer-nav-title">Topics</h4>
+          <a href="#">PLC Programming</a>
+          <a href="#">SCADA Development</a>
+          <a href="#">OT Cybersecurity</a>
+          <a href="#">Industry 4.0</a>
+          <a href="#">Python Projects</a>
+          <a href="#">Network Security</a>
+        </nav>
+      </div>
+
+      <!-- Tag Cloud -->
+      <div aria-label="SEO tag cloud" class="tag-cloud">
+        <span class="tag">#ICSsecurity</span><span class="tag">#SCADA</span>
+        <span class="tag">#PLCprogramming</span><span class="tag">#OTcybersecurity</span>
+        <span class="tag">#IndustrialAutomation</span><span class="tag">#Modbus</span>
+        <span class="tag">#OPCUA</span><span class="tag">#Profinet</span>
+        <span class="tag">#EthernetIP</span><span class="tag">#MQTT</span>
+        <span class="tag">#LabVIEW</span><span class="tag">#Python</span>
+        <span class="tag">#Java</span><span class="tag">#Cplusplus</span>
+        <span class="tag">#Industry40</span><span class="tag">#IIoT</span>
+        <span class="tag">#CyberSecurity</span><span class="tag">#EthicalHacking</span>
+        <span class="tag">#RTU</span><span class="tag">#DNP3</span>
+        <span class="tag">#NetworkSecurity</span><span class="tag">#Siemens</span>
+        <span class="tag">#AllenBradley</span><span class="tag">#SchneiderElectric</span>
+        <span class="tag">#Mitsubishi</span><span class="tag">#IEC62443</span>
+        <span class="tag">#NISTCSF</span><span class="tag">#CriticalInfrastructure</span>
+        <span class="tag">#DigitalTwin</span><span class="tag">#EdgeComputing</span>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom">
+        <p class="footer-copy">
+          © <span id="footerYear"></span>
+          <strong>Cyber Automation Engineer</strong>. All rights reserved.
+          Educational content only — see <a href="#disclaimer">Disclaimer</a>.
+        </p>
+        <p class="footer-tech">
+          Built with <i aria-hidden="true" class="fas fa-heart" style="color: #ff4d6d;"></i>
+          HTML5 · CSS3 · Vanilla JS
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
+

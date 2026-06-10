@@ -1,0 +1,777 @@
+
+# ============================================================
+# FILE: app.py
+# Cyber Automation Engineer — Python Backend (Flask / FastAPI)
+# ============================================================
+
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║   CYBER AUTOMATION ENGINEER  —  app.py                      ║
+# ║   Python Backend: Flask + FastAPI (choose one)              ║
+# ║   Features:                                                  ║
+# ║     • /api/posts      — blog post JSON feed                  ║
+# ║     • /api/profile    — author profile JSON                  ║
+# ║     • /sitemap.xml    — auto-generated XML sitemap           ║
+# ║     • SEO meta-tag injection helper                          ║
+# ║     • Google Blogger / static-site compatibility notes       ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+# DEPLOYMENT OPTIONS
+# # ──────────────────
+#   1. GitHub Pages / Netlify (static)
+#      - Deploy index.html + style.css + script.js only.
+#      - No Python backend required; /api/* calls fall back
+#        to the embedded BLOG_POSTS array in script.js.
+#
+#   2. Flask (lightweight, self-hosted)
+#      - pip install flask flask-cors
+#      - python app.py
+#      - Serves static files from ./static/ and API from /api/
+#
+#   3. FastAPI (production, async)
+#      - pip install fastapi uvicorn[standard] jinja2
+#      - uvicorn app:fastapi_app --host 0.0.0.0 --port 8000
+#
+#   4. Google Blogger / Blogspot
+#      - Use index.html as a Blogger custom template.
+#      - Replace <b:section> placeholders as needed.
+#      - Remove <script src="script.js"> and inline the JS
+#        in a <script> tag within the template.
+#      - Host style.css on a CDN (e.g. jsDelivr via GitHub).
+#      - /api/* endpoints are NOT available on Blogger;
+#        BLOG_POSTS[] in script.js acts as the data layer.
+#
+# DEPENDENCIES
+# # ────────────
+#   Flask  : pip install flask flask-cors
+#   FastAPI: pip install fastapi uvicorn[standard] jinja2
+#   Sitemap: uses Python stdlib only (xml.etree.ElementTree)
+
+import os
+import json
+import datetime
+from pathlib import Path
+
+# ═════════════════════════════════════════════════
+# SHARED DATA  (used by both Flask and FastAPI)
+# ═════════════════════════════════════════════════
+
+AUTHOR_PROFILE = {
+    "pseudonym": "Cyber Automation Engineer",
+    "role": "ICS/SCADA Security Researcher · PLC Developer · OT Cybersecurity Specialist",
+    "bio": (
+        "A seasoned professional at the intersection of Industrial Automation and Cybersecurity. "
+        "Specialising in ICS/SCADA architecture, PLC programming, industrial network protocols, "
+        "and securing Operational Technology environments."
+    ),
+    "skills": [
+        "PLC", "SCADA", "Python", "OPC UA", "Modbus",
+        "Cybersecurity", "LabVIEW", "MQTT", "Java", "C/C++",
+        "IEC 62443", "NIST CSF", "Profinet", "Ethernet/IP", "DNP3",
+    ],
+    "social": {
+        "github":   "https://github.com/cyberautomationengineer",
+        "linkedin": "https://www.linkedin.com/in/cyberautomationengineer",
+        "twitter":  "https://twitter.com/cyberautomation",
+    },
+    "contact": "contact@cyberautomation.example",
+}
+
+BLOG_POSTS = [
+    {
+        "id": 1,
+        "slug": "securing-modbus-tcp",
+        "title": "Securing Modbus TCP: Vulnerabilities, Attack Vectors & Mitigations",
+        "excerpt": (
+            "An in-depth analysis of known Modbus TCP weaknesses, replay-attack "
+            "demonstrations in a lab environment, and practical hardening recommendations."
+        ),
+        "content_url": "/blog/securing-modbus-tcp",
+        "tags": ["OT Cybersecurity", "Modbus", "ICS Security"],
+        "read_time": "12 min read",
+        "published_date": "2024-11-15",
+        "updated_date": "2024-11-15",
+        "author": "Cyber Automation Engineer",
+        "category": "OT Cybersecurity",
+        "featured": True,
+    },
+    {
+        "id": 2,
+        "slug": "plc-pid-function-block",
+        "title": "IEC 61131-3 Structured Text: Building a Reusable PID Function Block",
+        "excerpt": (
+            "Step-by-step guide to writing a portable, vendor-agnostic PID controller "
+            "in IEC 61131-3 ST, with anti-windup logic and bumpless transfer."
+        ),
+        "content_url": "/blog/plc-pid-function-block",
+        "tags": ["PLC Programming", "IEC 61131-3", "ST"],
+        "read_time": "10 min read",
+        "published_date": "2024-10-28",
+        "updated_date": "2024-10-28",
+        "author": "Cyber Automation Engineer",
+        "category": "PLC Programming",
+        "featured": True,
+    },
+    {
+        "id": 3,
+        "slug": "opc-ua-security-certificates",
+        "title": "OPC UA Security: Configuring Certificates & Encrypted Sessions",
+        "excerpt": (
+            "A practical walkthrough of OPC UA certificate management, SecurityPolicy "
+            "endpoints, and auditing client-server trust on a Siemens S7-1500 setup."
+        ),
+        "content_url": "/blog/opc-ua-security-certificates",
+        "tags": ["OPC UA", "SCADA", "PKI"],
+        "read_time": "14 min read",
+        "published_date": "2024-10-08",
+        "updated_date": "2024-10-08",
+        "author": "Cyber Automation Engineer",
+        "category": "SCADA Development",
+        "featured": True,
+    },
+    {
+        "id": 4,
+        "slug": "python-modbus-ics-scanner",
+        "title": "Python + PyModbus: Building an ICS Network Scanner",
+        "excerpt": (
+            "Write a lightweight Modbus device discovery tool in Python, enumerate "
+            "connected RTUs/PLCs, and export results to a structured JSON asset inventory."
+        ),
+        "content_url": "/blog/python-modbus-ics-scanner",
+        "tags": ["Python", "Modbus", "Tooling"],
+        "read_time": "9 min read",
+        "published_date": "2024-09-20",
+        "updated_date": "2024-09-20",
+        "author": "Cyber Automation Engineer",
+        "category": "Python Projects",
+        "featured": True,
+    },
+    {
+        "id": 5,
+        "slug": "iec-62443-zones-conduits",
+        "title": "IEC 62443 Zones & Conduits: Practical OT Network Segmentation",
+        "excerpt": (
+            "Map your plant network to IEC 62443-3-2 Security Level requirements, "
+            "design DMZ architectures, and enforce conduit policies with firewall examples."
+        ),
+        "content_url": "/blog/iec-62443-zones-conduits",
+        "tags": ["IEC 62443", "OT Security", "Network"],
+        "read_time": "16 min read",
+        "published_date": "2024-09-05",
+        "updated_date": "2024-09-05",
+        "author": "Cyber Automation Engineer",
+        "category": "OT Cybersecurity",
+        "featured": False,
+    },
+    {
+        "id": 6,
+        "slug": "labview-mqtt-iiot-dashboard",
+        "title": "LabVIEW & MQTT: Real-Time Industrial IoT Dashboard",
+        "excerpt": (
+            "Integrate LabVIEW with an MQTT broker to stream sensor data from NI DAQ "
+            "hardware to a cloud dashboard — includes QoS tuning and TLS configuration."
+        ),
+        "content_url": "/blog/labview-mqtt-iiot-dashboard",
+        "tags": ["LabVIEW", "MQTT", "IIoT"],
+        "read_time": "11 min read",
+        "published_date": "2024-08-18",
+        "updated_date": "2024-08-18",
+        "author": "Cyber Automation Engineer",
+        "category": "LabVIEW",
+        "featured": False,
+    },
+]
+
+SITE_BASE_URL = os.getenv("SITE_BASE_URL", "https://cyberautomationengineer.example.com")
+
+
+# ═════════════════════════════════════════════════
+#  FLASK APP
+#  Run: python app.py
+#  Or:  flask --app app run --debug
+# ═════════════════════════════════════════════════
+try:
+    from flask import Flask, jsonify, send_from_directory, Response
+    from flask_cors import CORS
+
+    flask_app = Flask(__name__, static_folder="static", static_url_path="/")
+    CORS(flask_app, resources={r"/api/*": {"origins": "*"}})
+
+    # ── Serve index.html at root ─────────────────────────
+    @flask_app.route("/")
+    def serve_index():
+        """Serve the main HTML file."""
+        return send_from_directory(flask_app.static_folder, "index.html")
+
+    # ── Author Profile ───────────────────────────────────
+    @flask_app.route("/api/profile")
+    def api_profile():
+        """
+        GET /api/profile
+        Returns author profile JSON for dynamic rendering.
+        """
+        return jsonify({"status": "ok", "data": AUTHOR_PROFILE})
+
+    # ── Blog Posts ───────────────────────────────────────
+    @flask_app.route("/api/posts")
+    def api_posts():
+        """
+        GET /api/posts
+        Returns all blog posts as JSON.
+        Query params:
+          ?featured=true  — return only featured posts
+          ?category=X     — filter by category name
+          ?limit=N        — limit result count
+        """
+        from flask import request
+        posts = BLOG_POSTS[:]
+
+        # Optional filters
+        featured_only = request.args.get("featured", "").lower() == "true"
+        category      = request.args.get("category", "").strip()
+        limit         = request.args.get("limit", type=int)
+
+        if featured_only:
+            posts = [p for p in posts if p.get("featured")]
+        if category:
+            posts = [p for p in posts if p["category"].lower() == category.lower()]
+        if limit:
+            posts = posts[:limit]
+
+        return jsonify({"status": "ok", "count": len(posts), "data": posts})
+
+    # ── Single Post by Slug ──────────────────────────────
+    @flask_app.route("/api/posts/<string:slug>")
+    def api_post_by_slug(slug: str):
+        """
+        GET /api/posts/<slug>
+        Returns a single blog post by its URL slug.
+        """
+        post = next((p for p in BLOG_POSTS if p["slug"] == slug), None)
+        if post is None:
+            return jsonify({"status": "error", "message": "Post not found"}), 404
+        return jsonify({"status": "ok", "data": post})
+
+    # ── XML Sitemap ──────────────────────────────────────
+    @flask_app.route("/sitemap.xml")
+    def sitemap():
+        """
+        GET /sitemap.xml
+        Auto-generates a valid XML sitemap for all known URLs.
+        """
+        xml = generate_sitemap_xml(BLOG_POSTS, SITE_BASE_URL)
+        return Response(xml, mimetype="application/xml")
+
+    # ── Health check ─────────────────────────────────────
+    @flask_app.route("/api/health")
+    def health():
+        return jsonify({"status": "ok", "ts": datetime.datetime.utcnow().isoformat()})
+
+except ImportError:
+    flask_app = None
+    print("[INFO] Flask not installed — Flask app not initialised.")
+
+
+# ═════════════════════════════════════════════════
+#  FASTAPI APP  (async, production-grade)
+#  Run: uvicorn app:fastapi_app --reload
+# ═════════════════════════════════════════════════
+try:
+    from fastapi import FastAPI, HTTPException, Query
+    from fastapi.responses import HTMLResponse, Response as FastResponse
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.middleware.cors import CORSMiddleware
+    from typing import Optional
+
+    fastapi_app = FastAPI(
+        title="Cyber Automation Engineer API",
+        description="Blog and profile API for the Cyber Automation Engineer website.",
+        version="1.0.0",
+    )
+
+    # CORS
+    fastapi_app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],
+        allow_methods=["GET"],
+        allow_headers=["*"],
+    )
+
+    # Serve static files (optional; remove if hosting elsewhere)
+    _static = Path("static")
+    if _static.exists():
+        fastapi_app.mount("/static", StaticFiles(directory="static"), name="static")
+
+    @fastapi_app.get("/api/profile", tags=["Profile"])
+    async def fastapi_profile():
+        """Return author profile data."""
+        return {"status": "ok", "data": AUTHOR_PROFILE}
+
+    @fastapi_app.get("/api/posts", tags=["Blog"])
+    async def fastapi_posts(
+        featured: Optional[bool]  = Query(None,  description="Filter featured only"),
+        category: Optional[str]   = Query(None,  description="Filter by category"),
+        limit:    Optional[int]   = Query(None,  description="Max results to return"),
+    ):
+        """Return blog posts with optional filters."""
+        posts = BLOG_POSTS[:]
+        if featured:
+            posts = [p for p in posts if p.get("featured")]
+        if category:
+            posts = [p for p in posts if p["category"].lower() == category.lower()]
+        if limit:
+            posts = posts[:limit]
+        return {"status": "ok", "count": len(posts), "data": posts}
+
+    @fastapi_app.get("/api/posts/{slug}", tags=["Blog"])
+    async def fastapi_post(slug: str):
+        """Return a single post by slug."""
+        post = next((p for p in BLOG_POSTS if p["slug"] == slug), None)
+        if not post:
+            raise HTTPException(status_code=404, detail="Post not found")
+        return {"status": "ok", "data": post}
+
+    @fastapi_app.get("/sitemap.xml", tags=["SEO"])
+    async def fastapi_sitemap():
+        """Return auto-generated XML sitemap."""
+        xml = generate_sitemap_xml(BLOG_POSTS, SITE_BASE_URL)
+        return FastResponse(content=xml, media_type="application/xml")
+
+    @fastapi_app.get("/api/health", tags=["System"])
+    async def fastapi_health():
+        return {"status": "ok", "ts": datetime.datetime.utcnow().isoformat()}
+
+except ImportError:
+    fastapi_app = None
+    print("[INFO] FastAPI not installed — FastAPI app not initialised.")
+
+
+# ═════════════════════════════════════════════════
+#  SEO UTILITIES
+# ═════════════════════════════════════════════════
+
+def generate_sitemap_xml(posts: list, base_url: str) -> str:
+    """
+    Generate a valid XML sitemap for Google Search Console / Bing.
+    Includes static pages and all blog post URLs.
+
+    Usage:
+        xml_string = generate_sitemap_xml(BLOG_POSTS, SITE_BASE_URL)
+        with open("static/sitemap.xml", "w") as f:
+            f.write(xml_string)
+    """
+
+    import xml.etree.ElementTree as ET
+
+    today = datetime.date.today().isoformat()
+
+    root = ET.Element("urlset")
+    root.set("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9")
+    root.set("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
+    root.set(
+        "xsi:schemaLocation",
+        "http://www.sitemaps.org/schemas/sitemap/0.9 "
+        "http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd",
+    )
+
+    # Static pages
+    static_pages = [
+        {"loc": base_url + "/",          "priority": "1.0", "changefreq": "weekly"},
+        {"loc": base_url + "/#about",    "priority": "0.8", "changefreq": "monthly"},
+        {"loc": base_url + "/#blog",     "priority": "0.9", "changefreq": "daily"},
+        {"loc": base_url + "/#protocols","priority": "0.7", "changefreq": "monthly"},
+        {"loc": base_url + "/#contact",  "priority": "0.6", "changefreq": "yearly"},
+    ]
+
+    for page in static_pages:
+        url_el = ET.SubElement(root, "url")
+        ET.SubElement(url_el, "loc").text        = page["loc"]
+        ET.SubElement(url_el, "lastmod").text    = today
+        ET.SubElement(url_el, "changefreq").text = page["changefreq"]
+        ET.SubElement(url_el, "priority").text   = page["priority"]
+
+    # Blog post pages
+    for post in posts:
+        url_el = ET.SubElement(root, "url")
+        ET.SubElement(url_el, "loc").text        = base_url + "/blog/" + post["slug"]
+        ET.SubElement(url_el, "lastmod").text    = post.get("updated_date", today)
+        ET.SubElement(url_el, "changefreq").text = "monthly"
+        ET.SubElement(url_el, "priority").text   = "0.8" if post.get("featured") else "0.7"
+
+    tree = ET.ElementTree(root)
+    ET.indent(tree, space="  ")
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(root, encoding="unicode")
+
+
+def inject_seo_meta_tags(template_html: str, meta: dict) -> str:
+
+    Server-side SEO meta-tag injector.
+    Replaces placeholder tokens in an HTML template with dynamic values.
+    Useful for per-post or per-page meta personalisation.
+
+    Args:
+        template_html (str): HTML string with {{TOKEN}} placeholders.
+        meta (dict): Dictionary of replacement values.
+
+    Placeholders recognised:
+        {{TITLE}}       - <title> and og:title
+        {{DESCRIPTION}} - meta description and og:description
+        {{KEYWORDS}}    - meta keywords
+        {{OG_IMAGE}}    - og:image URL
+        {{CANONICAL}}   - canonical link href
+        {{AUTHOR}}      - meta author
+
+    Returns:
+        str: HTML with all placeholders replaced.
+
+    Example:
+        html = open("templates/post.html").read()
+        rendered = Optimized tool selectionInspecting the workspace and Python app to identify dependencies and runtime issues.
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page)
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#1-1), lines 1 to 300
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#300-300), lines 300 to 505
+
+Gathering Python environment details so I can install the right packages and run the app correctly.
+
+Configuring a Python Environment
+Completed with input: {
+  "resourcePath": "d:\\Dibya Jyoti Practice\\web page\\app.py"
+}
+
+Creating a Virtual Environment
+Completed with input: {
+  "resourcePath": "d:\\Dibya Jyoti Practice\\web page\\app.py"
+}
+
+Fetching Python environment information
+Completed with input: {
+  "resourcePath": "d:\\Dibya Jyoti Practice\\web page\\app.py"
+}
+
+Installing the Python dependencies needed for both Flask and FastAPI.
+
+Installing packages fastapi, flask, flask-cors, jinja2, uvicorn[standard] in Python 3.13.13 (.venv)
+Completed with input: {
+  "packageList": [
+    "flask",
+    "flask-cors",
+    "fastapi",
+    "uvicorn[standard]",
+    "jinja2"
+  ],
+  "resourcePath": "d:\\Dibya Jyoti Practice\\web page\\app.py"
+}
+
+Setting up the expected static folder so the Python app can serve the website correctly.
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\nimport shutil\nroot = Path('d:/Dibya Jyoti Practice/web page')\nstatic = root / 'static'\nstatic.mkdir(exist_ok=True)\nfor src, dst in [(root / '1.html', static / 'index.html'), (root / 'script.js', static / 'script.js'), (root / 'style.css', static / 'style.css')]:\n    if src.exists():\n        shutil.copy2(src, dst)\n        print(f'Copied {src.name} -> {dst}')\n    else:\n        print(f'Missing source file: {src}')\n"
+}
+
+Verifying the app imports and runtime entrypoints after installing dependencies.
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import importlib.util\nimport sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app:', type(app.flask_app).__name__, 'fastapi_app:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', [p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')])\n"
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#1-1), lines 1 to 30
+
+Fixing the Python syntax error in app.py caused by non-commented box-drawing characters.
+
+Replacing 15 lines with 15 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n"
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#1-1), lines 1 to 40
+
+Scanning for remaining non-ASCII comment lines in app.py before final validation.
+
+Searched for regex `╔|╚|║|─` (`**/app.py`), 50 results
+
+Patching the remaining fancy separator line at the top of app.py.
+
+Replacing 4 lines with 4 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n"
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#35-35), lines 35 to 55
+
+Applying the second fix for the top file separator line before imports.
+
+Replacing 8 lines with 8 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n",
+  "timeout": 10000
+}
+
+Fixing the top docblock by commenting the remaining plain-text header lines.
+
+Replacing 35 lines with 35 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n",
+  "timeout": 10000
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#360-360), lines 360 to 410
+
+Fixing the malformed return string in `generate_sitemap_xml`.
+
+Replacing 7 lines with 7 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n",
+  "timeout": 10000
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#400-400), lines 400 to 430
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#430-430), lines 430 to 470
+
+Replacing 36 lines with 37 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n",
+  "timeout": 10000
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#330-330), lines 330 to 360
+
+Correcting the missing docstring delimiters for `generate_sitemap_xml`.
+
+Replacing 12 lines with 12 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "import sys\nfrom pathlib import Path\nsys.path.insert(0, 'd:/Dibya Jyoti Practice/web page')\nimport app\nprint('flask_app type:', type(app.flask_app).__name__)\nprint('fastapi_app type:', type(app.fastapi_app).__name__)\nprint('static exists:', Path('d:/Dibya Jyoti Practice/web page/static').exists())\nprint('static files:', sorted(p.name for p in Path('d:/Dibya Jyoti Practice/web page/static').glob('*')))\n",
+  "timeout": 10000
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#405-405), lines 405 to 420
+
+Inspecting the exact raw text around the `inject_seo_meta_tags` docstring.
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\npath = Path('d:/Dibya Jyoti Practice/web page/app.py')\ntext = path.read_text(encoding='utf-8')\nfor i, line in enumerate(text.splitlines(), start=1):\n    if 400 <= i <= 420:\n        print(i, repr(line))\n"
+}
+
+Inspecting the raw bytes around the bad docstring lines to patch them safely.
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\npath = Path('d:/Dibya Jyoti Practice/web page/app.py')\ntext = path.read_bytes()\n# find the region around 'TITLE' line\nidx = text.find(b'{{TITLE')\nprint('idx', idx)\nfor i in range(idx-20, idx+80):\n    print(i, hex(text[i]), repr(chr(text[i])))\n"
+}
+
+Testing the file compilation directly to confirm whether Python can parse the current source.
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\npath = Path('d:/Dibya Jyoti Practice/web page/app.py')\ntext = path.read_bytes().decode('utf-8')\ntry:\n    compile(text, str(path), 'exec')\n    print('compile succeeded')\nexcept Exception as e:\n    import traceback\n    traceback.print_exc()\n"
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#450-450), lines 450 to 470
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#405-405), lines 405 to 450
+
+Repairing the missing docstring delimiters for `inject_seo_meta_tags`.
+
+Replacing 37 lines with 37 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\npath = Path('d:/Dibya Jyoti Practice/web page/app.py')\ntext = path.read_bytes().decode('utf-8')\ntry:\n    compile(text, str(path), 'exec')\n    print('compile succeeded')\nexcept Exception as e:\n    import traceback\n    traceback.print_exc()\n",
+  "timeout": 10000
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#342-342), lines 342 to 360
+
+Repairing the missing triple-quoted docstring at the start of `generate_sitemap_xml`.
+
+Replacing 12 lines with 12 lines in [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py)
+
+
+```
+
+```
+
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\npath = Path('d:/Dibya Jyoti Practice/web page/app.py')\ntext = path.read_bytes().decode('utf-8')\ntry:\n    compile(text, str(path), 'exec')\n    print('compile succeeded')\nexcept Exception as e:\n    import traceback\n    traceback.print_exc()\n",
+  "timeout": 10000
+}
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#460-460), lines 460 to 490
+
+Searched for regex `def generate_robots_txt|generate_robots_txt` (`**/app.py`), 2 results
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#430-430), lines 430 to 455
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#455-455), lines 455 to 475
+
+Read [](file:///d%3A/Dibya%20Jyoti%20Practice/web%20page/app.py#470-470), lines 470 to 505
+
+Ran `pylanceRunCodeSnippet` 
+Completed with input: {
+  "workspaceRoot": "d:\\Dibya Jyoti Practice\\web page",
+  "codeSnippet": "from pathlib import Path\npath = Path('d:/Dibya Jyoti Practice/web page/app.py')\nlines = path.read_text(encoding='utf-8').splitlines()\nfor i, line in enumerate(lines, start=1):\n    if 'def inject_seo_meta_tags' in line or 'def generate_robots_txt' in line or 'return f\"\"\"' in line or line.strip() == '\"\"\"':\n        print(i, repr(line))\n"
+}
+
+Analyzing triple-quote balancing in app.py to find the remaining source issue.
+
+Made changes.(html, {
+            "TITLE":       "Securing Modbus TCP | CAE",
+            "DESCRIPTION": "In-depth analysis of Modbus TCP vulnerabilities...",
+            "KEYWORDS":    "Modbus, ICS security, OT cybersecurity",
+            "CANONICAL":   "https://cyberautomation.example/blog/securing-modbus-tcp",
+            "OG_IMAGE":    "https://cyberautomation.example/assets/modbus-cover.png",
+            "AUTHOR":      "Cyber Automation Engineer",
+        })
+    """
+
+    for token, value in meta.items():
+        template_html = template_html.replace("{{" + token + "}}", str(value))
+    return template_html
+
+
+def generate_robots_txt(base_url: str) -> str:
+    """
+    Generate a robots.txt file content string.
+    Write to static/robots.txt for deployment.
+    """
+    return f"""User-agent: *
+Allow: /
+
+Sitemap: {base_url}/sitemap.xml
+
+# Disallow API endpoints from indexing
+Disallow: /api/
+
+# Allow bots access to assets
+Allow: /static/
+"""
+
+
+# ═════════════════════════════════════════════════
+#  CLI UTILITIES  (run directly)
+# ═════════════════════════════════════════════════
+
+def save_sitemap_to_disk():
+    """Write sitemap.xml and robots.txt to ./static/"""
+    static_dir = Path("static")
+    static_dir.mkdir(exist_ok=True)
+
+    sitemap = generate_sitemap_xml(BLOG_POSTS, SITE_BASE_URL)
+    (static_dir / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+    print(f"[✓] sitemap.xml written to {static_dir / 'sitemap.xml'}")
+
+    robots = generate_robots_txt(SITE_BASE_URL)
+    (static_dir / "robots.txt").write_text(robots, encoding="utf-8")
+    print(f"[✓] robots.txt written to {static_dir / 'robots.txt'}")
+
+
+# ═════════════════════════════════════════════════
+#  ENTRY POINT
+# ═════════════════════════════════════════════════
+if __name__ == "__main__":
+    import sys
+
+    if "--sitemap" in sys.argv:
+        # python app.py --sitemap  → generate static files only
+        save_sitemap_to_disk()
+    elif "--fastapi" in sys.argv:
+        # python app.py --fastapi  → start FastAPI via uvicorn
+        try:
+            import uvicorn
+            uvicorn.run("app:fastapi_app", host="0.0.0.0", port=8000, reload=True)
+        except ImportError:
+            print("[ERROR] uvicorn not installed. Run: pip install uvicorn[standard]")
+    else:
+        # Default: Flask dev server
+        if flask_app:
+            print("Starting Flask development server on http://127.0.0.1:5000")
+            print("Place index.html / style.css / script.js in ./static/")
+            flask_app.run(debug=True, host="0.0.0.0", port=5000)
+        else:
+            print("[ERROR] Flask not installed. Run: pip install flask flask-cors")
+            print("        Or use --fastapi flag for FastAPI server.")
+

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Tags & SEO -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cyber Automation Engineer - Technical expertise in ICS/SCADA systems, OT Cybersecurity, PLC Programming, and Industrial Automation. Exploring the intersection of automation, security, and software development.">
+    <meta name="keywords" content="ICS Security, SCADA, PLC Programming, OT Cybersecurity, Industrial Automation, Modbus, OPC UA, Python, Java, C/C++, LabVIEW, Ethical Hacking, Network Security">
+    <meta name="author" content="Cyber Automation Engineer">
+    <meta name="theme-color" content="#0a0a0f">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Cyber Automation Engineer - ICS/SCADA Security & Automation Blog">
+    <meta property="og:description" content="Technical insights into Industrial Automation, ICS/SCADA Systems, OT Cybersecurity, and Software Development.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630?text=Cyber+Automation+Engineer">
+    
+    <!-- Twitter Card Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Cyber Automation Engineer">
+    <meta name="twitter:description" content="ICS/SCADA Security & Industrial Automation Expert">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Cyber Automation Engineer",
+        "url": "https://cyberautomationengineer.com",
+        "sameAs": ["https://twitter.com", "https://github.com", "https://linkedin.com"],
+        "jobTitle": "Automation Engineer, ICS Security Researcher",
+        "knowsAbout": ["Industrial Automation", "SCADA Systems", "PLC Programming", "Cybersecurity", "OT Security"],
+        "image": "https://via.placeholder.com/200x200"
+    }
+    </script>
+    
+    <title>Cyber Automation Engineer - ICS/SCADA Security & Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%2300d4ff'>⚡</text></svg>">
+</head>
+<body>
+    <!-- ====== HEADER & NAVIGATION ====== -->
+    <header class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <a href="#home" class="logo-link">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">CAE</span>
+                </a>
+            </div>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#blog" class="nav-link">Blog</a>
+                <a href="#expertise" class="nav-link">Expertise</a>
+                <a href="#categories" class="nav-link">Topics</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            
+            <div class="navbar-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode" title="Toggle Theme">
+                    <span class="theme-icon">🌙</span>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="circuit-grid"></div>
+            <canvas id="particleCanvas"></canvas>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="typewriter" id="typewriter"></span>
+                    <span class="cursor">|</span>
+                </h1>
+                <p class="hero-tagline">Exploring the intersection of <span class="highlight">automation</span>, <span class="highlight">security</span>, and <span class="highlight">innovation</span></p>
+                <div class="hero-cta">
+                    <a href="#blog" class="btn btn-primary glow-effect">Explore the Blog</a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== AUTHOR PROFILE & INTRODUCTION ====== -->
+    <section class="author-profile" id="about">
+        <div class="container">
+            <h2 class="section-title">About the Engineer</h2>
+            
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <img src="https://via.placeholder.com/200x200?text=CAE" alt="Cyber Automation Engineer Avatar" class="avatar-img">
+                    <div class="avatar-glow"></div>
+                </div>
+                
+                <div class="profile-info">
+                    <h3 class="profile-name">Cyber Automation Engineer</h3>
+                    <p class="profile-title">ICS/SCADA Security Researcher | Automation Engineer | Software Developer</p>
+                    
+                    <p class="profile-bio">
+                        With expertise spanning Industrial Control Systems, SCADA platforms, and OT Cybersecurity, I specialize in bridging the gap between operational technology and information security. My mission is to educate professionals about secure automation practices, responsible disclosure, and ethical security research. Through this platform, I share technical insights, best practices, and real-world case studies from the industrial automation landscape.
+                    </p>
+                    
+                    <div class="skill-badges">
+                        <span class="badge">PLC Programming</span>
+                        <span class="badge">SCADA</span>
+                        <span class="badge">Python</span>
+                        <span class="badge">OPC UA</span>
+                        <span class="badge">Modbus</span>
+                        <span class="badge">Cybersecurity</span>
+                        <span class="badge">LabVIEW</span>
+                        <span class="badge">MQTT</span>
+                        <span class="badge">Java</span>
+                        <span class="badge">C/C++</span>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://github.com" target="_blank" rel="noopener" title="GitHub" class="social-icon">
+                            <span>🐙</span>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter/X" class="social-icon">
+                            <span>𝕏</span>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" title="LinkedIn" class="social-icon">
+                            <span>💼</span>
+                        </a>
+                        <a href="mailto:contact@cyberautomationengineer.com" title="Email" class="social-icon">
+                            <span>✉️</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== EXPERTISE & SKILLS SECTION ====== -->
+    <section class="expertise" id="expertise">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h4>ICS/SCADA Systems</h4>
+                        <span class="skill-level">95%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="95"></div>
+                    </div>
+                    <p class="skill-description">Industrial Control Systems architecture, SCADA platforms, and distributed control systems.</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h4>PLC Programming</h4>
+                        <span class="skill-level">92%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="92"></div>
+                    </div>
+                    <p class="skill-description">Siemens S7, Allen-Bradley, Mitsubishi, Schneider Electric platforms.</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h4>OT Cybersecurity</h4>
+                        <span class="skill-level">90%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="90"></div>
+                    </div>
+                    <p class="skill-description">Threat modeling, vulnerability assessment, and security hardening of OT environments.</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h4>Python Development</h4>
+                        <span class="skill-level">88%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="88"></div>
+                    </div>
+                    <p class="skill-description">Automation scripts, data analysis, OPC UA clients, and security tools.</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h4>Industrial Protocols</h4>
+                        <span class="skill-level">93%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="93"></div>
+                    </div>
+                    <p class="skill-description">Modbus RTU/TCP, OPC UA, Profinet, Ethernet/IP, DNP3.</p>
+                </div>
+
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <h4>Java & C/C++</h4>
+                        <span class="skill-level">85%</span>
+                    </div>
+                    <div class="skill-bar">
+                        <div class="skill-progress" data-progress="85"></div>
+                    </div>
+                    <p class="skill-description">Enterprise applications, real-time systems, and embedded development.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FEATURED BLOG POSTS SECTION ====== -->
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <h2 class="section-title">Featured Articles</h2>
+            
+            <div class="blog-grid" id="blogGrid">
+                <!-- Blog posts dynamically loaded by JavaScript -->
+            </div>
+            
+            <div class="view-all-cta">
+                <a href="#categories" class="btn btn-primary">View All Articles</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== PROTOCOLS & TECHNOLOGIES SECTION ====== -->
+    <section class="protocols-section">
+        <div class="container">
+            <h2 class="section-title">Industrial Protocols & Platforms</h2>
+            
+            <div class="protocols-grid">
+                <div class="protocol-badge">
+                    <span class="badge-icon">📡</span>
+                    <span class="badge-text">Modbus RTU</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">🔗</span>
+                    <span class="badge-text">Modbus TCP/IP</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">🏢</span>
+                    <span class="badge-text">OPC UA</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">⚙️</span>
+                    <span class="badge-text">Profinet</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">🔌</span>
+                    <span class="badge-text">Ethernet/IP</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">📊</span>
+                    <span class="badge-text">DNP3</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">💬</span>
+                    <span class="badge-text">MQTT</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">🏭</span>
+                    <span class="badge-text">Siemens S7</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">🤖</span>
+                    <span class="badge-text">Allen-Bradley</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">⚡</span>
+                    <span class="badge-text">Mitsubishi</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">🔒</span>
+                    <span class="badge-text">Schneider Electric</span>
+                </div>
+                <div class="protocol-badge">
+                    <span class="badge-icon">📈</span>
+                    <span class="badge-text">Industry 4.0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CATEGORIES / TOPICS SECTION ====== -->
+    <section class="categories-section" id="categories">
+        <div class="container">
+            <h2 class="section-title">Explore Topics</h2>
+            
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">🔌</div>
+                    <h3>PLC Programming</h3>
+                    <p>Learn Ladder Logic, Structured Text, and Function Blocks across multiple platforms.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🏗️</div>
+                    <h3>SCADA Development</h3>
+                    <p>Build robust supervisory control and data acquisition systems with best practices.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🔐</div>
+                    <h3>OT Cybersecurity</h3>
+                    <p>Secure industrial systems against evolving threats and vulnerabilities.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🔍</div>
+                    <h3>Ethical Hacking</h3>
+                    <p>Penetration testing and vulnerability assessment in OT environments.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🐍</div>
+                    <h3>Python Projects</h3>
+                    <p>Automation scripts, OPC UA clients, and security tools written in Python.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">☕</div>
+                    <h3>Java Development</h3>
+                    <p>Enterprise-grade applications and real-time systems in Java.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">📡</div>
+                    <h3>RTU Configuration</h3>
+                    <p>Set up and configure Remote Terminal Units for field data collection.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🛡️</div>
+                    <h3>Network Security</h3>
+                    <p>Firewalls, VPNs, and segmentation strategies for industrial networks.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🚀</div>
+                    <h3>Industry 4.0</h3>
+                    <p>IoT integration, edge computing, and smart manufacturing technologies.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-icon">🎛️</div>
+                    <h3>LabVIEW</h3>
+                    <p>Visual programming for data acquisition and instrument control systems.</p>
+                    <a href="#" class="category-link">Explore →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== DISCLAIMER / MISSION STATEMENT ====== -->
+    <section class="disclaimer-section">
+        <div class="container">
+            <div class="disclaimer-banner">
+                <h3>🎯 Mission & Ethical Commitment</h3>
+                <p>
+                    All content published on this platform is <strong>intended for educational and professional development purposes only</strong>. 
+                    This blog promotes <strong>responsible disclosure</strong>, ethical security research, and compliance with all applicable laws and regulations. 
+                    Any security vulnerabilities or exploits discussed here are presented within legal and ethical boundaries. 
+                    Unauthorized access to computer systems, networks, or industrial control systems is <strong>illegal and prohibited</strong>. 
+                    Always obtain proper authorization before conducting any security assessments or penetration testing. 
+                    By accessing this content, you agree to use this information responsibly and in accordance with all applicable laws.
+                </p>
+                <p class="disclaimer-highlight">
+                    ⚠️ <strong>Disclaimer:</strong> The author is not liable for misuse of information presented here. 
+                    Use this knowledge to build secure, resilient systems, not to compromise them.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== CONTACT / CTA SECTION ====== -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            
+            <div class="contact-content">
+                <p class="contact-intro">Have questions, collaboration opportunities, or want to discuss industrial automation and security? I'd love to hear from you.</p>
+                
+                <div class="contact-cta">
+                    <a href="mailto:contact@cyberautomationengineer.com" class="btn btn-primary glow-effect">Send Email</a>
+                    <a href="https://github.com" target="_blank" rel="noopener" class="btn btn-secondary">GitHub Profile</a>
+                </div>
+                
+                <div class="contact-socials">
+                    <p class="contact-label">Follow for updates:</p>
+                    <div class="social-links-row">
+                        <a href="https://twitter.com" target="_blank" rel="noopener" title="Twitter/X">𝕏 Twitter</a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" title="LinkedIn">💼 LinkedIn</a>
+                        <a href="https://github.com" target="_blank" rel="noopener" title="GitHub">🐙 GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ====== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Cyber Automation Engineer</h4>
+                    <p>&copy; 2024 - All rights reserved. Educational content for ICS/SCADA security and industrial automation.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Topics</h4>
+                    <ul>
+                        <li><a href="#categories">PLC Programming</a></li>
+                        <li><a href="#categories">SCADA Development</a></li>
+                        <li><a href="#categories">OT Cybersecurity</a></li>
+                        <li><a href="#categories">Industry 4.0</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-bottom">
+                <div class="footer-tags">
+                    <span class="tag-label">Keywords:</span>
+                    <div class="tag-cloud" id="tagCloud">
+                        <a href="#" class="tag">#ICS</a>
+                        <a href="#" class="tag">#SCADA</a>
+                        <a href="#" class="tag">#PLC</a>
+                        <a href="#" class="tag">#Cybersecurity</a>
+                        <a href="#" class="tag">#OT-Security</a>
+                        <a href="#" class="tag">#Automation</a>
+                        <a href="#" class="tag">#Python</a>
+                        <a href="#" class="tag">#Java</a>
+                        <a href="#" class="tag">#Modbus</a>
+                        <a href="#" class="tag">#OPC-UA</a>
+                        <a href="#" class="tag">#LabVIEW</a>
+                        <a href="#" class="tag">#Industry4.0</a>
+                        <a href="#" class="tag">#Ethical-Hacking</a>
+                        <a href="#" class="tag">#Network-Security</a>
+                        <a href="#" class="tag">#Profinet</a>
+                    </div>
+                </div>
+                
+                <p class="footer-credit">Designed & developed by Cyber Automation Engineer | Built with ❤️ & 💻</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTop" aria-label="Scroll to top" title="Back to Top">
+        <span>↑</span>
+    </button>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+</html>
