@@ -96,10 +96,10 @@ AUTHOR_PROFILE = {
     "location": "Remote",
     "professional_title": "ICS Security Researcher & Automation Engineer",
     "social_links": {
-        "github": "https://github.com",
-        "linkedin": "https://linkedin.com",
-        "twitter": "https://twitter.com",
-        "email": "contact@cyberautomation.local",
+        "github": "https://github.com/P-Dibya",
+        "linkedin": "https://www.linkedin.com/in/dibyajyoti-sahoo-127400300/",
+        "twitter": "https://x.com/Dibyajy81971874",
+        "email": "sahoodebu179@gmail.com",
     },
     "skills": [
         "PLC Programming",
