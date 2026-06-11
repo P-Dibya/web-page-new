@@ -302,7 +302,7 @@ async def fastapi_sitemap():
     return Response(content=xml_content, media_type="application/xml")
 
 # ============================================================================
-# UTILITY FUNCTIONS
+# UTILITY FUNCTIONS 2 and 3: SEO & SITEMAP GENERATION
 # ============================================================================
 
 def generate_sitemap_xml() -> str:
